@@ -1,9 +1,7 @@
 var mainState = {
     preload: function (){
-        game.load.image('player', 'media/player.png');
-        game.load.image('wall','media/wall.png');
-        game.load.image('coin','media/coin.png');
-        game.load.image('enemy','media/enemy.png');
+        game.load.image('chef', 'media/chef.png');
+        game.load.image('dog','media/doggo.png');
     },
     
     create: function (){
