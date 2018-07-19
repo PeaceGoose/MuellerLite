@@ -26,18 +26,34 @@ var mainState = {
         
         //creates 3 groups that will contain objects
         this.walls = game.add.group();
-        this.coin = game.add.group();
+        this.coins = game.add.group();
         this.enemies = game.add.group();
         
         var level = [
             'xxxxxxxxxxxxxxxxxxxxxx',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-        ]
+            '!         !          x',
+            '!                 o  x',
+            '!         o          x',
+            '!                    x',
+            '!     o   !    x     x',
+            'xxxxxxxxxxxxxxxx!!!!!x',
+        ];
+                // Create the level by going through the array
+        for (var i = 0; i < level.length; i++) {
+            for (var j = 0; j < level[i].length; j++) {
+                
+                if(level[i][j] === 'x'){
+                   var wall = game.add.sprite(30+20*j, 30+20*i, 'wall');
+                    this.walls.add(wall);
+                    wall.body.immovable = true;
+                    
+                }else if(level[i][j] === '!'){
+                    var enemy = game.add.sprite(30+20*j, 30+20*i, 'enemy');
+                    this.enemies.add(enemy);
+                }else if(level[i][j] === 'o'){
+                    var coin = game.add.sprite(30+20*j, 30+20*i, 'coin');
+                    this.coins.add(coin);
+                }
         
     },
     
