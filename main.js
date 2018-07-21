@@ -1,42 +1,52 @@
-var mainState = {
-    preload: function (){
-        game.load.image('chef', 'media/chef.png');
-        game.load.image('dog','media/doggo.png');
+var mainState = {  
+    preload: function() {  
+        // Here we preload the assets
+        
+        //name image on the left, give path to image on the right 
+        game.load.image('player', 'media/player.png');
+        game.load.image('wall', 'media/wall.png');
+        game.load.image('coin', 'media/coin.png');
+        game.load.image('enemy', 'media/enemy.png');
     },
-    
-    create: function (){
-        //set the game a backround color
-        game.state.backroundColor = '#3598db';
+
+    create: function() {  
+        // Here we create the game
         
-        //Start the arcade physics system (for movement and collision)
+        //change the game's background color
+        game.stage.backgroundColor = '#3598db';
+
+        // Start the Arcade physics system (for movements and collisions)
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        
-        //add the physics engine to all objects
+
+        // Add the physics engine to all game objects
         game.world.enableBody = true;
         
         this.cursor = game.input.keyboard.createCursorKeys();
-        
-        //creates player in the middle of the game
-        this.player = game.add.sprite(70,100,'player');
-        
-        //gets the gravity of the player
+
+        // Create the player in the middle of the game
+        this.player = game.add.sprite(70, 100, 'player');
+        this.score = 0;
+
+        // Add gravity to make it fall
         this.player.body.gravity.y = 600;
         
-        //creates 3 groups that will contain objects
+        // Create 3 groups that will contain our objects
         this.walls = game.add.group();
         this.coins = game.add.group();
         this.enemies = game.add.group();
-        
+
+        // Design the level. x = wall, o = coin, ! = lava.
         var level = [
             'xxxxxxxxxxxxxxxxxxxxxx',
             '!         !          x',
-            '!             o   o  x',
+            '!                 o  x',
             '!         o          x',
             '!                    x',
             '!     o   !    x     x',
             'xxxxxxxxxxxxxxxx!!!!!x',
         ];
-                // Create the level by going through the array
+        
+        // Create the level by going through the array
         for (var i = 0; i < level.length; i++) {
             for (var j = 0; j < level[i].length; j++) {
                 
@@ -52,15 +62,56 @@ var mainState = {
                     var coin = game.add.sprite(30+20*j, 30+20*i, 'coin');
                     this.coins.add(coin);
                 }
-        
-    },
-    
-    update: function(){
-        
-    },
-    
-}
 
-var game = new Phaser.Game(500,200);
-game.state.add('main',mainState);
+
+            
+                
+            }
+        }
+        
+        
+    },
+
+    update: function() {  
+      //Check for players and walls colliding
+        game.physics.arcade.collide(this.player, this.walls);
+        
+        //check for player and coins overlapping
+        game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
+        
+        //check for player and enemy overlapping
+        game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
+        
+        if(this.score >= 3){var text = game.add.text(game.world.centerX, game.world.centerY, "You won" , 
+            {
+            fill: 'white'
+        });
+        text.anchor.setTo(0.5,0.5);
+        }
+        
+        if(this.cursor.left.isDown){
+            this.player.body.velocity.x = -200;
+        }else if(this.cursor.right.isDown){
+            this.player.body.velocity.x = 200;
+        }else{this.player.body.velocity.x = 0;
+        }
+        if(this.cursor.up.isDown && this.player.body.touching.down){
+            this.player.body.velocity.y = -200;
+        }
+    },
+    
+    takeCoin: function(player, coin){
+        this.score++;
+        coin.kill();
+    },
+    restart: function(){
+    game.state.start('main');
+}
+    
+
+};
+
+// Initialize the game and start our state
+var game = new Phaser.Game(800, 600);  
+game.state.add('main', mainState);  
 game.state.start('main');
