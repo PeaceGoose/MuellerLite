@@ -30,7 +30,7 @@ var mainState = {
         var level = [
             'xxxxxxxxxxxxxxxxxxxxxx',
             '!         !          x',
-            '!                 o  x',
+            '!             o   o  x',
             '!         o          x',
             '!                    x',
             '!     o   !    x     x',
