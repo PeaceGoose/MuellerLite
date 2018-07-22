@@ -3,7 +3,7 @@ var mainState = {
         // Here we preload the assets
         
         //name image on the left, give path to image on the right 
-        game.load.image('player', 'media/player.png');
+        game.load.image('player', 'media/doggo.png');
         game.load.image('wall', 'media/wall.png');
         game.load.image('coin', 'media/coin.png');
         game.load.image('enemy', 'media/enemy.png');
@@ -97,6 +97,9 @@ var mainState = {
         }
         if(this.cursor.up.isDown && this.player.body.touching.down){
             this.player.body.velocity.y = -200;
+        }
+        if(this.cursor.down.isDown){
+            game.state.restart()
         }
     },
     
