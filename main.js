@@ -5,7 +5,7 @@ var mainState = {
         //name image on the left, give path to image on the right 
         game.load.image('player', 'media/doggo.png');
         game.load.image('wall', 'media/wall.png');
-        game.load.image('coin', 'media/coin.png');
+        game.load.image('coin', 'media/coke.png');
         game.load.image('enemy', 'media/enemy.png');
         game.load.audio('audio','media/bird.m4a');
     },
