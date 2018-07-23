@@ -7,6 +7,7 @@ var mainState = {
         game.load.image('wall', 'media/wall.png');
         game.load.image('coin', 'media/coin.png');
         game.load.image('enemy', 'media/enemy.png');
+        game.load.audio('audio','media/bird.m4a');
     },
 
     create: function () {
@@ -108,7 +109,9 @@ var mainState = {
     takeCoin: function (player, coin) {
         this.score++;
         coin.kill();
-    },
+        game.sound.play('audio')
+        
+     },
     restart: function () {
         game.state.start('main');
     }
