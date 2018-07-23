@@ -109,9 +109,8 @@ var mainState = {
     takeCoin: function (player, coin) {
         this.score++;
         coin.kill();
-        game.sound.play('audio')
-        
-     },
+         game.sound.play('audio')
+    },
     restart: function () {
         game.state.start('main');
     }
