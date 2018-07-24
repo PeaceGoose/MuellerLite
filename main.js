@@ -7,6 +7,7 @@ var mainState = {
         game.load.image('wall', 'media/wall.png');
         game.load.image('coin', 'media/coke.png');
         game.load.image('enemy', 'media/enemy.png');
+        game.load.image('egg','media/egg.png');
         game.load.audio('audio','media/bird.m4a');
     },
 
@@ -27,7 +28,6 @@ var mainState = {
         // Create the player in the middle of the game
         this.player = game.add.sprite(70, 100, 'player');
         this.score = 0;
-
         // Add gravity to make it fall
         this.player.body.gravity.y = 600;
 
@@ -38,12 +38,12 @@ var mainState = {
 
         // Design the level. x = wall, o = coin, ! = lava.
         var level = [
-            'xxxxxxxxxxxxxxxxxxxxxx',
-            '!         !          x',
-            '!                 o  x',
-            '!         o          x',
-            '!                    x',
-            '!     o   !    x     x',
+            'xxxxxxxxxxxxxxxxxxxxxx               x',
+            '!         !          x               x',
+            '!                 o  x               x',
+            '!         o                          x',
+            '!                                    x',
+            '!     o   !    x     x               x',
             'xxxxxxxxxxxxxxxx!!!!!x',
         ];
 
@@ -68,8 +68,8 @@ var mainState = {
 
 
             }
+            
         }
-
 
     },
 
@@ -84,7 +84,7 @@ var mainState = {
         game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
 
         if (this.score >= 3) {
-            var text = game.add.text(game.world.centerX, game.world.centerY, "You won",
+            var text = game.add.text(game.world.centerX, game.world.centerY, "You Won",
                 {
                     fill: 'white'
                 });
@@ -114,7 +114,6 @@ var mainState = {
     restart: function () {
         game.state.start('main');
     }
-
 
 };
 
