@@ -7,10 +7,15 @@ var mainState = {
         game.load.image('wall', 'media/wall.png');
         game.load.image('coin', 'media/coke.png');
         game.load.image('enemy', 'media/enemy.png');
+<<<<<<< HEAD
         game.load.image('chef', 'media/chef.png');
         game.load.audio('audio', 'media/bird.m4a');
         game.load.tilemap('map', 'media/Doggo.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('tileset', 'media/strawberry_cake_tileset_small.png')
+=======
+        game.load.image('egg','media/egg.png');
+        game.load.audio('audio','media/bird.m4a');
+>>>>>>> d4682726c82fa52730c12f0c0f300d63c6e5bfee
     },
 
     create: function () {
@@ -30,7 +35,6 @@ var mainState = {
         // Create the player in the middle of the game
         this.player = game.add.sprite(70, 100, 'player');
         this.score = 0;
-
         // Add gravity to make it fall
         this.player.body.gravity.y = 600;
 
@@ -47,6 +51,7 @@ var mainState = {
         this.tween.yoyo(true, 0);
 
         // Design the level. x = wall, o = coin, ! = lava.
+<<<<<<< HEAD
         this.map = this.game.add.tilemap('map');
         this.map.addTilesetImage('strawberry_cake_tileset_small', 'tileset');
         
@@ -80,7 +85,41 @@ var mainState = {
 //
 //            }
 //        }
+=======
+        var level = [
+            'xxxxxxxxxxxxxxxxxxxxxx               x',
+            '!         !          x               x',
+            '!                 o  x               x',
+            '!         o                          x',
+            '!                                    x',
+            '!     o   !    x     x               x',
+            'xxxxxxxxxxxxxxxx!!!!!x',
+        ];
 
+        // Create the level by going through the array
+        for (var i = 0; i < level.length; i++) {
+            for (var j = 0; j < level[i].length; j++) {
+
+                if (level[i][j] === 'x') {
+                    var wall = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'wall');
+                    this.walls.add(wall);
+                    wall.body.immovable = true;
+
+                } else if (level[i][j] === '!') {
+                    var enemy = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'enemy');
+                    this.enemies.add(enemy);
+                } else if (level[i][j] === 'o') {
+                    var coin = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'coin');
+                    this.coins.add(coin);
+                }
+
+
+
+
+            }
+            
+        }
+>>>>>>> d4682726c82fa52730c12f0c0f300d63c6e5bfee
 
     },
 
@@ -95,7 +134,7 @@ var mainState = {
         game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
 
         if (this.score >= 3) {
-            var text = game.add.text(game.world.centerX, game.world.centerY, "You won",
+            var text = game.add.text(game.world.centerX, game.world.centerY, "You Won",
                 {
                     fill: 'white'
                 });
@@ -125,7 +164,6 @@ var mainState = {
     restart: function () {
         game.state.start('main');
     }
-
 
 };
 
