@@ -7,7 +7,10 @@ var mainState = {
         game.load.image('wall', 'media/wall.png');
         game.load.image('coin', 'media/coke.png');
         game.load.image('enemy', 'media/enemy.png');
-        game.load.audio('audio','media/bird.m4a');
+        game.load.image('chef', 'media/chef.png');
+        game.load.audio('audio', 'media/bird.m4a');
+        game.load.tilemap('map', 'media/Doggo.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('tileset', 'media/strawberry_cake_tileset_small.png')
     },
 
     create: function () {
@@ -35,47 +38,55 @@ var mainState = {
         this.walls = game.add.group();
         this.coins = game.add.group();
         this.enemies = game.add.group();
+        this.chefs = game.add.group();
+        
+        this.danger = game.add.sprite(200, 95, 'chef')
+        this.enemies.add(this.danger);
+        this.tween = game.add.tween(this.danger).to( { x:400, y:95 }, 1000, "Linear", true, 0, -1);
+        
+        this.tween.yoyo(true, 0);
 
         // Design the level. x = wall, o = coin, ! = lava.
-        var level = [
-            'xxxxxxxxxxxxxxxxxxxxxx',
-            '!         !          x',
-            '!                 o  x',
-            '!         o          x',
-            '!                    x',
-            '!     o   !    x     x',
-            'xxxxxxxxxxxxxxxx!!!!!x',
-        ];
+        this.map = this.game.add.tilemap('map');
+        this.map.addTilesetImage('strawberry_cake_tileset_small', 'tileset');
+        
+        
+        this.objectLayer = this.map.createLayer('Obstacles');
+        this.wallsLayer = this.map.createLayer('Walls');
+        
+        this.map.setCollision([239, 320, 519, 202,], true, this.wallsLayer);
+        this.world.enableBody = true;
+        this.world.setBounds = (0, 0, 1280, 640);
 
         // Create the level by going through the array
-        for (var i = 0; i < level.length; i++) {
-            for (var j = 0; j < level[i].length; j++) {
-
-                if (level[i][j] === 'x') {
-                    var wall = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'wall');
-                    this.walls.add(wall);
-                    wall.body.immovable = true;
-
-                } else if (level[i][j] === '!') {
-                    var enemy = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'enemy');
-                    this.enemies.add(enemy);
-                } else if (level[i][j] === 'o') {
-                    var coin = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'coin');
-                    this.coins.add(coin);
-                }
-
-
-
-
-            }
-        }
+//        for (var i = 0; i < level.length; i++) {
+//            for (var j = 0; j < level[i].length; j++) {
+//
+//                if (level[i][j] === 'x') {
+//                    var wall = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'wall');
+//                    this.walls.add(wall);
+//                    wall.body.immovable = true;
+//
+//                } else if (level[i][j] === '!') {
+//                    var enemy = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'enemy');
+//                    this.enemies.add(enemy);
+//                } else if (level[i][j] === 'o') {
+//                    var coin = game.add.sprite(30 + 20 * j, 30 + 20 * i, 'coin');
+//                    this.coins.add(coin);
+//                }
+//
+//
+//
+//
+//            }
+//        }
 
 
     },
 
     update: function () {
         //Check for players and walls colliding
-        game.physics.arcade.collide(this.player, this.walls);
+        game.physics.arcade.collide(this.player, this.wallsLayer);
 
         //check for player and coins overlapping
         game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
@@ -119,6 +130,6 @@ var mainState = {
 };
 
 // Initialize the game and start our state
-var game = new Phaser.Game(800, 600);
+var game = new Phaser.Game(1280, 640);
 game.state.add('main', mainState);
 game.state.start('main');
