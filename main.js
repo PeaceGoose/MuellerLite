@@ -134,7 +134,7 @@ var mainState = {
         
 
         if (this.score >= 5) {
-            var text = game.add.text(700, 400, "You Have cured your diabetes!",
+            var text = game.add.text(700, 400, "You have stabilized your glucose levels!",
                 {
                     fill: 'aquamarine'
                 });
