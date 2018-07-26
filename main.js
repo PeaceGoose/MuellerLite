@@ -10,8 +10,8 @@ var mainState = {
         game.load.image('chef', 'media/chef.png');
         game.load.image('egg','media/egg.png');
         game.load.image('background', 'media/openconceptkitchen.png')
-        game.load.audio('audio', 'media/Coin.m4a');
-        game.load.audio('die','media/Death.m4a');
+        game.load.audio('audio', 'media/Coin.wav');
+        game.load.audio('die','media/Death.wav');
         game.load.audio('jump','media/Jump.wav')
 
     },
