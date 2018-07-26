@@ -8,12 +8,11 @@ var mainState = {
         game.load.image('coke', 'media/coke.png');
         game.load.image('enemy', 'media/depression.png');
         game.load.image('chef', 'media/chef.png');
-        game.load.image('egg','media/egg.png');
+        game.load.image('egg', 'media/egg.png');
         game.load.image('background', 'media/openconceptkitchen.png')
         game.load.audio('audio', 'media/Coin.m4a');
-        game.load.audio('die','media/Death.m4a');
+        game.load.audio('die','media/Death.wav');
         game.load.audio('chef','media/chef.m4a');
-        game.load.audio('jump','media/jump.m4a');
         game.load.audio('jump','media/Jump.wav');
 
 
