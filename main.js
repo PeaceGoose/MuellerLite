@@ -12,6 +12,8 @@ var mainState = {
         game.load.image('background', 'media/openconceptkitchen.png')
         game.load.audio('audio', 'media/Coin.m4a');
         game.load.audio('die','media/Death.m4a');
+        game.load.audio('chef','media/chef.m4a');
+        game.load.audio('jump','media/jump.m4a');
 
     },
 
@@ -48,43 +50,43 @@ var mainState = {
         
         this.danger = game.add.sprite(200, 200, 'chef')
         this.enemies.add(this.danger);
-        this.tween = game.add.tween(this.danger).to( { x:400, y:200 }, 1000, "Linear", true, 0, -1);
+        this.tween = game.add.tween(this.danger).to( { x:400, y:200 }, 2000, "Linear", true, 0, -1);
         this.tween.yoyo(true, 0);
         
         this.danger = game.add.sprite(600, 400, 'chef')
         this.enemies.add(this.danger);
-        this.tween = game.add.tween(this.danger).to( { x:800, y:400 }, 1000, "Linear", true, 0, -1);
+        this.tween = game.add.tween(this.danger).to( { x:800, y:400 }, 2000, "Linear", true, 0, -1);
         this.tween.yoyo(true, 0);
         
         // Design the level. x = wall, o = coke, ! = depression.
         var level = [
             'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
             'x                                                                         x',
-            'x                                                                         x',
             'x                                    o                                    x',
-            'x                    o               x                                    x',
-            'x                   xxx            !   !                o                 x',
-            'xxxxxxxxxxxxx     xx   xx    xxxx!!!!!!!!!xxxx    x !x !x !x !x !x !x     x', 
-            'x             !!!                                                         x',
-            'x                         !!                                             xx',
+            'x                    o                                                    x',
+            'x                                    x                  o                 x',
+            'x                   xxx            !   !                                  x',
+            'xxxxxxxxxxxxx     xx   xx    xxxx!!!!!!!!!xxxx !! x !x !x !x !x !x !x     x', 
+            'x             !!!         !!                                              x',
+            'x                                                                        xx',
             'x                                                                       x x',
             'x                                                                      x  x',
-            'x                                                     x    x   x   x  x   x',
-            'x                              x    x    x    x                           x',
-            'x                                                       x    x   x   x    x',
+            'x                                                      x   x   x   x  x   x',
+            'x                                    x !!! x !!! x !!                     x',
+            'x                     x  !!  xx !!! x                    x   x   x   x    x',
+            'x                    x  !  !                                              x',
+            'x                   x                                                     x',
+            'x             o    x                                                      x',
+            'x                 x                            xxx    x                   x',
+            'x           ! x !                                                         x',
+            'x        x                                               x                x',
+            'x     !!                                                                  x',
+            'x   x                                                       x             x',
             'x                                                                         x',
+            'x                                                              x        c x',
             'x                                                                         x',
-            'x                                                                         x',
-            'x                                                                         x',
-            'x                                                                         x',
-            'x                                                                         x',
-            'x                                                                         x',
-            'x                                                                         x',
-            'x                                                                         x',
-            'x                                                                       c x',
-            'x                                                                         x',
-            'x                                                                         x',
-            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            'x                                                                 x  x   xx',
+            'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
             
         ];
 
@@ -127,8 +129,10 @@ var mainState = {
         //check for player and enemy overlapping
         game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
         
+        game.physics.arcade.overlap(this.player, this.chefs, this.cook, null, this);
+        
 
-        if (this.score >= 3) {
+        if (this.score >= 6) {
             var text = game.add.text(game.world.centerX, game.world.centerY, "You Have cured your diabetes!",
                 {
                     fill: 'white'
@@ -145,6 +149,7 @@ var mainState = {
         }
         if (this.cursor.up.isDown && this.player.body.touching.down) {
             this.player.body.velocity.y = -300;
+            game.sound.play('jump');
         }
         if(this.cursor.down.isDown){
             game.sound.play('die')
@@ -161,7 +166,10 @@ var mainState = {
         game.sound.play('die');
         game.state.start('main');
     },
-  
+    cook: function (player, chef) {
+        chef.kill();
+        game.sound.play('chef');
+    }
     
 
 };
