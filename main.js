@@ -12,12 +12,10 @@ var mainState = {
         game.load.image('background', 'media/openconceptkitchen.png')
         game.load.audio('audio', 'media/Coin.m4a');
         game.load.audio('die','media/Death.m4a');
-<<<<<<< HEAD
         game.load.audio('chef','media/chef.m4a');
         game.load.audio('jump','media/jump.m4a');
-=======
-        game.load.audio('jump','media/Jump.wav')
->>>>>>> 7f378cfdd32b686d3e6b0177897989b0047e4ee3
+        game.load.audio('jump','media/Jump.wav');
+
 
     },
 
@@ -82,13 +80,13 @@ var mainState = {
             'x                   x                                                     x',
             'x             o    x                                                      x',
             'x                 x                            xxx    x                   x',
-            'x           ! x !                                                         x',
+            'x           ! x !                        xxx                              x',
             'x        x                                               x                x',
-            'x     !!                                                                  x',
+            'x     !!                           xxx                                    x',
             'x   x                                                       x             x',
             'x                                                                         x',
             'x                                                              x        c x',
-            'x                                                                         x',
+            'x        x x x x x x x x x x x                                            x',
             'x                                                                 x  x   xx',
             'x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!x',
             
