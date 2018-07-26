@@ -44,7 +44,11 @@ var mainState = {
         this.danger = game.add.sprite(200, 200, 'chef')
         this.enemies.add(this.danger);
         this.tween = game.add.tween(this.danger).to( { x:400, y:200 }, 1000, "Linear", true, 0, -1);
+        this.tween.yoyo(true, 0);
         
+        this.danger = game.add.sprite(600, 400, 'chef')
+        this.enemies.add(this.danger);
+        this.tween = game.add.tween(this.danger).to( { x:800, y:400 }, 1000, "Linear", true, 0, -1);
         this.tween.yoyo(true, 0);
         
         // Design the level. x = wall, o = coke, ! = depression.
@@ -54,7 +58,7 @@ var mainState = {
             'x                                                                                x',
             'x                                    o                                           x',
             'x                    o               x                                           x',
-            'x                   xxx            !   !             c                            x',
+            'x                   xxx            !   !                                         x',
             'xxxxxxxxxxxxx     xx   xx    xxxx!!!!!!!!!xxxx    x !x !x !x !x !x !x            x', 
             'x             !!!                                                                x',
             'x                         !!                                                     x',
