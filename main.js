@@ -12,6 +12,7 @@ var mainState = {
         game.load.image('background', 'media/openconceptkitchen.png')
         game.load.audio('audio', 'media/Coin.m4a');
         game.load.audio('die','media/Death.m4a');
+        game.load.audio('jump','media/Jump.wav')
 
     },
 
@@ -145,6 +146,7 @@ var mainState = {
         }
         if (this.cursor.up.isDown && this.player.body.touching.down) {
             this.player.body.velocity.y = -300;
+            game.sound.play('jump');
         }
         if(this.cursor.down.isDown){
             game.sound.play('die')
