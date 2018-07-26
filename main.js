@@ -19,7 +19,7 @@ var mainState = {
         // Here we create the game
 
         //change the game's background color
-        background = game.add.tileSprite(0, 0, 1400, 700, 'background');
+        background = game.add.tileSprite(0, 0, 1600, 600, 'background');
 
         // Start the Arcade physics system (for movements and collisions)
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -32,6 +32,10 @@ var mainState = {
         // Create the player in the middle of the game
         this.player = game.add.sprite(70, 100, 'player');
         this.score = 0;
+        
+        game.world.setBounds(0, 0, 3200, 1400)
+        
+        game.camera.follow(this.player);
         
         // Add gravity to make it fall
         this.player.body.gravity.y = 1000;
@@ -54,33 +58,33 @@ var mainState = {
         
         // Design the level. x = wall, o = coke, ! = depression.
         var level = [
-            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                    o                                           x',
-            'x                    o               x                                           x',
-            'x                   xxx            !   !                                         x',
-            'xxxxxxxxxxxxx     xx   xx    xxxx!!!!!!!!!xxxx    x !x !x !x !x !x !x            x', 
-            'x             !!!                                                                x',
-            'x                         !!                                                     x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'x                                                                                x',
-            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                    o                                    x',
+            'x                    o               x                                    x',
+            'x                   xxx            !   !                o                 x',
+            'xxxxxxxxxxxxx     xx   xx    xxxx!!!!!!!!!xxxx    x !x !x !x !x !x !x     x', 
+            'x             !!!                                                         x',
+            'x                         !!                                             xx',
+            'x                                                                       x x',
+            'x                                                                      x  x',
+            'x                                                     x    x   x   x  x   x',
+            'x                              x    x    x    x                           x',
+            'x                                                       x    x   x   x    x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'x                                                                       c x',
+            'x                                                                         x',
+            'x                                                                         x',
+            'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
             
         ];
 
@@ -122,9 +126,10 @@ var mainState = {
 
         //check for player and enemy overlapping
         game.physics.arcade.overlap(this.player, this.enemies, this.restart, null, this);
+        
 
         if (this.score >= 3) {
-            var text = game.add.text(game.world.centerX, game.world.centerY, "You Won",
+            var text = game.add.text(game.world.centerX, game.world.centerY, "You Have cured your diabetes!",
                 {
                     fill: 'white'
                 });
@@ -155,11 +160,13 @@ var mainState = {
     restart: function () {
         game.sound.play('die');
         game.state.start('main');
-    }
+    },
+  
+    
 
 };
 
 // Initialize the game and start our state
-var game = new Phaser.Game(1400, 700);
+var game = new Phaser.Game(1600, 600);
 game.state.add('main', mainState);
 game.state.start('main');
