@@ -10,7 +10,8 @@ var mainState = {
         game.load.image('chef', 'media/chef.png');
         game.load.image('egg','media/egg.png');
         game.load.image('background', 'media/openconceptkitchen.png')
-        game.load.audio('audio', 'media/bird.m4a');
+        game.load.audio('audio', 'media/Coin.m4a');
+        game.load.audio('die','media/Chef.m4a');
 
     },
 
@@ -141,7 +142,8 @@ var mainState = {
             this.player.body.velocity.y = -300;
         }
         if(this.cursor.down.isDown){
-            game.state.restart()
+            game.sound.play('die')
+            game.state.restart();
         }
     },
 
@@ -151,6 +153,7 @@ var mainState = {
          game.sound.play('audio')
     },
     restart: function () {
+        game.sound.play('die');
         game.state.start('main');
     }
 
