@@ -70,20 +70,20 @@ var mainState = {
             'xxxxxxxxxxxxx     xx   xx    xxxx!!!!!!!!!xxxx !! x !x !x !x !x !x !x     x', 
             'x             !!!         !!                                              x',
             'x                                                                        xx',
-            'x                                                                       x x',
+            'x                                                              o        x x',
             'x                                                                      x  x',
             'x                                                      x   x   x   x  x   x',
             'x                                    x !!! x !!! x !!                     x',
             'x                     x  !!  xx !!! x                    x   x   x   x    x',
             'x                    x  !  !                                              x',
             'x                   x                                                     x',
-            'x             o    x                                                      x',
+            'x                  x                                                      x',
             'x                 x                            xxx    x                   x',
             'x           ! x !                        xxx                              x',
             'x        x                                               x                x',
             'x     !!                           xxx                                    x',
             'x   x                                                       x             x',
-            'x                                                                         x',
+            'x             o                                                           x',
             'x                                                              x        c x',
             'x        x x x x x x x x x x x                                            x',
             'x                                                                 x  x   xx',
@@ -133,10 +133,10 @@ var mainState = {
         game.physics.arcade.overlap(this.player, this.chefs, this.cook, null, this);
         
 
-        if (this.score >= 6) {
-            var text = game.add.text(game.world.centerX, game.world.centerY, "You Have cured your diabetes!",
+        if (this.score >= 5) {
+            var text = game.add.text(700, 400, "You Have cured your diabetes!",
                 {
-                    fill: 'white'
+                    fill: 'aquamarine'
                 });
             text.anchor.setTo(0.5, 0.5);
         }
@@ -170,6 +170,11 @@ var mainState = {
     cook: function (player, chef) {
         chef.kill();
         game.sound.play('chef');
+         var text = game.add.text(700, 500, "Mamma Mia!",
+                {
+                    fill: 'springgreen'
+                });
+            text.anchor.setTo(0.5, 0.5);
     }
     
 
