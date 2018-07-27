@@ -154,7 +154,7 @@ var mainState = {
         }
         if(this.cursor.down.isDown){
             game.sound.play('die')
-            game.state.restart();
+//            game.state.restart();
         }
     },
 
